@@ -1,0 +1,101 @@
+{% extends 'enroll/base.html' %}
+{% block content %}
+<div class="row"> 
+<div class="col-sm-4">
+    <h4 class="text-center alert alert-info">Add New Speaker</h4>
+<form action="" method="POST">
+    <label>First Name : </label>
+    <br>
+    <input type="text" name="fname"
+    id="name" placeholder="Enter Your First Name">
+    <br><br>
+    <label>Last Name : </label>
+    <br>
+    <input type="text" name="fname"
+    id="name" placeholder="Enter Your Last Name">
+    <br><br>
+    <label>Speaker Age : </label>
+    <br>
+    <input type="number" name="age"
+    id="name" placeholder="How old are you?">
+    <br><br>
+    <label>Email : </label>
+    <br>
+    <input type="email" name="email"
+    id="name" placeholder="Enter Your Vaild Email ID">
+    <br><br>
+    <label>Password : </label>
+    <br>
+    <input type="text" name="password"
+    id="name" placeholder="Enter Password">
+    <br><br>
+    <label>Gender : </label>
+    <br>
+    &nbsp;&nbsp;&nbsp;
+    <input type="radio" name="gender"
+    id="male">
+    &nbsp;
+    <span id="male">Male</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="gender"
+    id="female">
+    &nbsp;
+    <span id="female">Female</span>
+    <br><br>
+    <label>Known Language :</label>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" name="lang"
+    id="hindi">
+    &nbsp;
+    <span id="hindi">Hindi</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" name="lang"
+    id="eng">
+    &nbsp;
+    <span id="eng">English</span>
+    <br><br>
+{% csrf_token %}
+{{forms.as_p}}
+<input type="submit" class="btn btn-success" value="Add">
+</form>
+</div>
+
+<div class="col-sm-7 offset-1">
+ <h4 class="text-center alert alert-info">Show Speaker Information</h4>
+  {% if stu %}
+       <table class="table table-hover">
+       <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+        <th scope="col">Action</th>
+        </tr>
+       </thead>
+       <tbody>
+        {% for st in stu %}
+        <tr>
+        <th scope="row">{st.id}</th>
+        <td>{{st.name}}</td>
+        <td>{{st.email}}</td>
+        <td>{{st.password}}</td>
+        <td>
+            <a href="{% url 'updatedata' st.id %}" class="btn btn-warning btn-sm">Edit</a>
+            <form action="" method="post" class="d-inline"> {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+         </td>
+       </tr>
+      {% endfor%}
+      </tbody>
+     </table>
+
+{% else %}
+  <h4 class="text-center alert alert-warning">No Records</h4>
+{% endif %}
+</div>
+</div>
+{% endblock content %}
+
